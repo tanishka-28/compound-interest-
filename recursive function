@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <math.h>
+
+// Recursive function to calculate compound interest
+double calculateCompoundInterest(double *principal, double rate, int *years) {
+    // Base case: If no more years, return the principal
+    if (*years == 0) {
+        return *principal;
+    }
+
+    // Increment the principal for the current year
+    *principal += (*principal * rate / 100);
+
+    // Decrement the number of years
+    (*years)--;
+
+    // Recursive call for the remaining years
+    return calculateCompoundInterest(principal, rate, years);
+}
+
+int main() {
+    double principal; // Initial principal amount
+    double rate;      // Annual interest rate
+    int years;        // Number of years for investment
+
+    // Input from the user
+    printf("Enter the initial principal amount: ");
+    scanf("%lf", &principal);
+    printf("Enter the annual interest rate (in %%): ");
+    scanf("%lf", &rate);
+    printf("Enter the number of years: ");
+    scanf("%d", &years);
+
+    // Copy the initial number of years for display
+    int originalYears = years;
+
+    // Calculate compound interest using recursion
+    double futureValue = calculateCompoundInterest(&principal, rate, &years);
+
+    // Display the result
+    printf("The future value of the investment after %d years is: %.2lf\n", originalYears, futureValue);
+
+    return 0;
+}
